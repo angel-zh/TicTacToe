@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+  }
+  
+  h1 {
+    margin: 50px;
+  }
+  
+  h2 {
+    margin: 0 0 40px 0;
+  }
+  
+  #gameContainer {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    gap: 5px;
+    width: 310px;
+    margin: 0 auto;
+  }
+  
+  .cell {
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+  
+  .cell:hover {
+    background: lightgrey;
+  }
+  
