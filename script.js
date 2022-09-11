@@ -1,14 +1,15 @@
-const currentPlayerText = document.getElementById("currentPlayerText");
-const winnerText = document.getElementById("winnerText");
-const gridCells = document.querySelectorAll(".cell");
-const restartButton = document.getElementById("restart");
-const gameContainer = document.getElementById("gameContainer");
+const currentTurnText = document.getElementById("currentTurnText")
+const resultText = document.getElementById("resultText")
+const gridCells = document.querySelectorAll(".cell")
+const restartButton = document.getElementById("restart")
+const gameContainer = document.getElementById("gameContainer")
 
-const playerO = "O";
-const playerX = "X";
-let currentPlayer 
+const playerO = "O"
+const playerX = "X"
+let currentTurn = playerO
+let turnCount = 0
 
-const winningCombo = [
+const winningCombos = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -17,71 +18,59 @@ const winningCombo = [
   [2, 5, 8],
   [0, 4, 8],
   [2, 4, 6]
-];
+]
 
-const getClickedCell = (event) => {
-  const clickedCell = event.target.getAttribute("id");
-  //console.log(clickedCell);
-};
+const switchPlayer = () => {
+  currentTurn = currentTurn === playerO ? playerX : playerO
+  currentTurnText.innerHTML = currentTurn
+}
 
-gameContainer.addEventListener("click", getClickedCell);
+const endGame = () => {
+    gameContainer.removeEventListener('click', handleClickedCell)
+}
+
+const checkWinningCombos = () =>{
+  for (i = 0; i < winningCombos.length; i++) {
+    const x = winningCombos[i][0]
+    const y = winningCombos[i][1]
+    const z = winningCombos[i][2]
+    const compareWin = new Set([gridCells[x].innerHTML, gridCells[y].innerHTML, gridCells[z].innerHTML])
+    if (compareWin.size === 1 && gridCells[x].innerHTML !== "") {
+     return `The winner is player ${gridCells[x].innerHTML}!`
+    }    
+  } 
+  return ""
+}
 
 
-
-const checkForWinner = () => {
-  if (currentPlayer === gridCells[0]) {
-    if (currentPlayer === gridCells[1] && currentPlayer === gridCells[2]) {
-      winnerText.innerHTML = `${currentPlayer} won!`;
-      return true;
-    } else if (
-      currentPlayer === gridCells[3] &&
-      currentPlayer === gridCells[6]
-    ) {
-      winnerText.innerHTML = `${currentPlayer} won!`;
-      return true;
-    } else if (
-      currentPlayer === gridCells[4] &&
-      currentPlayer === gridCells[8]
-    ) {
-      winnerText.innerHTML = `${currentPlayer} won!`;
-      return true;
+  const handleClickedCell = (event) => {
+  const clickedCell = parseInt(event.target.getAttribute("id"));
+  if (!gridCells[clickedCell].innerHTML) {
+    turnCount++
+    gridCells[clickedCell].innerHTML = currentTurn
+    const winner = checkWinningCombos()
+    if (winner !== "") {
+      resultText.innerHTML = winner
+      endGame()
+    } 
+    else if (turnCount === 9) {
+      resultText.innerHTML = "It's a draw!"
     }
-  } else if (
-    currentPlayer === gridCells[3] &&
-    currentPlayer === gridCells[4] &&
-    currentPlayer === gridCells[5]
-  ) {
-    winnerText.innerHTML = `${currentPlayer} won!`;
-    return true;
-  } else if (
-    currentPlayer === gridCells[6] &&
-    currentPlayer === gridCells[7] &&
-    currentPlayer === gridCells[8]
-  ) {
-    winnerText.innerHTML = `${currentPlayer} won!`;
-    return true;
-  } else if (
-    currentPlayer === gridCells[1] &&
-    currentPlayer === gridCells[4] &&
-    currentPlayer === gridCells[7]
-  ) {
-    winnerText.innerHTML = `${currentPlayer} won!`;
-    return true;
-  } else if (currentPlayer === gridCells[2]) {
-    if (currentPlayer === gridCells[5] && currentPlayer === gridCells[8]) {
-      winnerText.innerHTML = `${currentPlayer} won!`;
-      return true;
-    } else if (
-      currentPlayer === gridCells[4] &&
-      currentPlayer === gridCells[6]
-    ) {
-      winnerText.innerHTML = `${currentPlayer} won!`;
-      return true;
+    else {
+      switchPlayer() 
     }
   }
-};
+}   
 
-const initializeGame = () => {
-  checkForWinner();
-};
+gameContainer.addEventListener("click", handleClickedCell)
 
+restartButton.addEventListener('click', function() {
+    gameContainer.addEventListener("click", handleClickedCell)
+    let currentTurn = playerO
+    let turnCount = 0
+    currentTurnText.innerHTML = currentTurn
+    resultText.innerHTML = "&hearts;&hearts;&hearts;"
+    for (i = 0; i < gridCells.length; i++) {
+      gridCells[i].innerHTML = ""
+    }
+  })
