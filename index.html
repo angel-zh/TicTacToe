@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Gamja+Flower&family=Mitr&display=swap" rel="stylesheet">
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="./style.css">
   <script src="./app.js" defer></script>
@@ -26,7 +26,13 @@
     <div class="cell" id="7"></div>
     <div class="cell" id="8"></div>
   </div>
-  <button id="restart">Restart</button>
+  <div id="scoreContainer">
+    <h3>Player O's Score: <span id="playerOScoreText"> 0 </span></h3>
+    <h3>Player X's Score: <span id="playerXScoreText"> 0 </span></h3>
+  </div>
+  <button id="restart">Restart Game</button> <br>
+  <button id="resetScore">Reset Score</button>
+  <footer>Made by Angel Z.</footer>
 </body>
 
 </html>
