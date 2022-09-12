@@ -1,20 +1,48 @@
 body {
-    text-align: center;
+    text-align: center; 
+    background: linear-gradient(rgb(148, 150, 192), rgb(255, 207, 208));
+    height: 100%
+     margin: 0 auto;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
   }
   
   h1 {
-    margin: 50px;
+    margin: 40px;
+    font-family: "Gamja Flower", cursive;
+    font-size: 55px;
+    text-shadow: 1px 1px 5px black;
+    color: white;
   }
   
   h2 {
+    font-family: "Gaegu", cursive;
+    font-size: 35px;
     margin: 0 0 40px 0;
+    color: rgb(120, 122, 179);
+  }
+  
+  h3 {
+    font-family: "Gaegu", cursive;
+    color: rgb(120, 122, 179);
+    font-size: 28px;
+    margin: 20px;
+  }
+  
+  #currentTurnText {
+    color: white;
+  }
+  
+  #resultText {
+    color: rgb(120, 122, 179);
+    font-family: "Gamja Flower", cursive;
   }
   
   #gameContainer {
     display: grid;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
-    gap: 5px;
+    gap: 1px;
     width: 310px;
     margin: 0 auto;
   }
@@ -22,9 +50,41 @@ body {
   .cell {
     border: 1px solid black;
     border-radius: 3px;
+    font-size: 85px;
+    background: rgba(255,255,255,.2);
+    font-family: "Gaegu", cursive;
   }
   
   .cell:hover {
-    background: lightgrey;
+    background: rgba(148, 150, 192,.3);
   }
   
+  #scoreContainer {
+    display: flex;
+    justify-content: center; 
+  }
+  
+  #playerOScoreText, #playerXScoreText {
+    color: white;
+  }
+  
+  button {
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    font-size: 18px;
+    color: white;
+    background: rgba(148, 150, 192, .9);
+    padding: 0px 6px;
+    font-family: "Mitr", sans-serif;
+  }
+  
+  button:hover {
+    background:rgba(148, 150, 192, .5)
+  }
+  
+  footer {
+    font-family: "Gaegu", cursive;
+    font-size: 20px;
+    color: rgb(120, 122, 179);
+  }
