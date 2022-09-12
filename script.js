@@ -2,10 +2,15 @@ const currentTurnText = document.getElementById("currentTurnText")
 const resultText = document.getElementById("resultText")
 const gridCells = document.querySelectorAll(".cell")
 const restartButton = document.getElementById("restart")
+const resetScoreButton = document.getElementById("resetScore")
 const gameContainer = document.getElementById("gameContainer")
+const playerOScoreText = document.getElementById('playerOScoreText')
+const playerXScoreTexT = document.getElementById('playerXScoreText')
 
 const playerO = "O"
 const playerX = "X"
+let playerOScore = 0
+let playerXScore = 0
 let currentTurn = playerO
 let turnCount = 0
 
@@ -36,7 +41,7 @@ const checkWinningCombos = () =>{
     const z = winningCombos[i][2]
     const compareWin = new Set([gridCells[x].innerHTML, gridCells[y].innerHTML, gridCells[z].innerHTML])
     if (compareWin.size === 1 && gridCells[x].innerHTML !== "") {
-     return `The winner is player ${gridCells[x].innerHTML}!`
+      return gridCells[x].innerHTML
     }    
   } 
   return ""
@@ -50,7 +55,14 @@ const checkWinningCombos = () =>{
     gridCells[clickedCell].innerHTML = currentTurn
     const winner = checkWinningCombos()
     if (winner !== "") {
-      resultText.innerHTML = winner
+      resultText.innerHTML = `The winner is player ${winner}!`
+      if (winner === "X") {
+        playerXScore++
+        playerXScoreText.innerHTML = playerXScore
+      } else {
+        playerOScore++
+        playerOScoreText.innerHTML = playerOScore
+      }
       endGame()
     } 
     else if (turnCount === 9) {
@@ -65,12 +77,19 @@ const checkWinningCombos = () =>{
 gameContainer.addEventListener("click", handleClickedCell)
 
 restartButton.addEventListener('click', function() {
+    currentTurn = playerO
+    turnCount = 0 
     gameContainer.addEventListener("click", handleClickedCell)
-    let currentTurn = playerO
-    let turnCount = 0
     currentTurnText.innerHTML = currentTurn
     resultText.innerHTML = "&hearts;&hearts;&hearts;"
     for (i = 0; i < gridCells.length; i++) {
       gridCells[i].innerHTML = ""
     }
   })
+
+resetScoreButton.addEventListener('click', function() {
+  playerOScore = 0
+  playerXScore = 0
+  playerXScoreText.innerHTML = 0
+  playerOScoreText.innerHTML = 0
+})
